@@ -1,23 +1,27 @@
-import logo from './logo.svg';
+import {useState} from 'react'
+
+import Navbar from './Navbar';
+import Widget from './Widget';
+
 import './App.css';
 
 function App() {
+
+  const [isExpanded, toggleExpand] = useState(false)
+
+  const handleExpand = () => {
+    toggleExpand(!isExpanded)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="wrapper">
+      <Navbar/>
+      <div className={`grid-container ${isExpanded ? 'container-expanded': ''}`}>
+        <Widget key={'highlights'} handleExpandClick={handleExpand} title="Highlights" path='get_highlight'/>
+        <Widget key={'buyers'} handleExpandClick={handleExpand} title="Buyers" path='get_buyer'/>
+        <Widget key={'countries'} handleExpandClick={handleExpand} title="Countries" path='get_country'/>
+        <Widget key={'income'} handleExpandClick={handleExpand} title="Income" path='get_income'/>
+      </div>
     </div>
   );
 }
